@@ -1,0 +1,34 @@
+.header-icon-container {
+    padding: 4px 12px;
+    display: inline-block;
+    align-self: center;
+}
+
+.header-icon-container, .header-icon-container > * {
+    cursor: pointer;
+}
+
+.header-icon-button {
+    border: none;
+    background: none;
+    color: black;
+    padding: 0;
+}
+
+.header-icon-icon {
+    padding: 4px;
+    transition: .25s;
+}
+
+.header-icon-icon.hovered {
+    filter: invert(52%) sepia(1%) saturate(0%) hue-rotate(39deg) brightness(95%) contrast(89%);
+    transition: .25s;
+}
+
+.header-icon-icon.default {
+    width: 32px;
+}
+
+.header-icon-icon.small {
+    width: 24px;
+}
