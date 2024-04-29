@@ -13,8 +13,6 @@ type HeaderProps = {
 
 export default function Header(props: HeaderProps) {
 
-
-
   return (
     <div className='header-container'>
         <HeaderIcon src={logo}></HeaderIcon>
@@ -25,9 +23,13 @@ export default function Header(props: HeaderProps) {
         </div>
         : <></>}
 
-        <div className='header-right'>
+        {props.authorized?
+          <div className='header-right'>
           <HeaderIcon src={user}></HeaderIcon>
-        </div>
+          </div> : 
+          <div className='header-right'>
+          <HeaderIcon src={user}></HeaderIcon>
+          </div>}
       </div>
   );
 }
