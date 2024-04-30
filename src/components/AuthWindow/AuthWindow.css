@@ -24,6 +24,7 @@
     border-radius: 10px;
     text-align: center;
     margin: 12px 0;
+    background: #FCF9F2;
 }
 
 .auth-form > :first-child {
@@ -46,11 +47,17 @@
 }
 
 .auth-switch-option {
-
+    cursor: pointer;
+    background: #FCF9F2;
 }
 
 .auth-switch-option.selected {
-    background: rgb(217, 217, 217);
+    background: #cad3c9;
     border-radius: 10px;
     transition-duration: .2s;
+}
+
+.auth-button {
+    background: #cad3c9;
+    cursor: pointer;
 }
