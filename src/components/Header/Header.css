@@ -1,18 +1,18 @@
 .header-container {
     display: flex;
-    justify-content: space-between;
     padding: 0 45px;
     background: #82956A;
     padding: 5px 45px;
     
     font-size: 15px;
     line-height: 18.29px;
+    position: relative;
 }
 
 .header-authorized {
     display: flex;
     justify-content: flex-start;
-    width: 60%;
+    flex-grow: 1;
 }
 
 .header-authorized > * {

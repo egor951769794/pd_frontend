@@ -3,17 +3,24 @@ import './AuthWindow.css';
 
 import axios from 'axios';
 
+import { BACKEND_BASE_URL } from 'src/constants/constants';
 
-type AuthWindowProps = {
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
+
+
+// type AuthWindowProps = {
   
-}
+// }
 
 
-export default function AuthWindow(props: AuthWindowProps) {
-
-  const BACKEND_BASE_URL = 'http://82.97.252.126:8008'
+export default function AuthWindow() {
 
   const [windowState, setWindowState] = useState(0);
+
+  const [userToken, setUserToken, removeUserToken] = useCookies(['token', ''])
+
+  const navigate = useNavigate()
 
   const [registrationData, setRegistrationData] = useState(
     {
@@ -48,7 +55,7 @@ export default function AuthWindow(props: AuthWindowProps) {
   const handleAuthSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     axios.post(BACKEND_BASE_URL.concat("/auth/signin"), authData)
-    .then((respone) => console.log(respone))
+    .then((respone) => {setUserToken('token', respone.data.accessToken); navigate("/main")})
     .catch((error) => console.log(error))
   }
 

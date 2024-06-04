@@ -1,0 +1,13 @@
+.user-modal-container {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transform: translate(-200%, 100%); 
+    background: #A5BBA2;
+    padding: 12px;
+    cursor: pointer
+}
+
+.user-modal-container.hidden {
+    display: none;
+}

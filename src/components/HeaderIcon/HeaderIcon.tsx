@@ -7,16 +7,17 @@ type HeaderIconProps = {
   selected?: boolean;
   doHover?: boolean;
   size?: string;
+  handler: (value: any) => void
 }
 
-export default function HeaderIcon({src, selected = false, doHover = false, size = 'default'}: HeaderIconProps) {
+export default function HeaderIcon({src, selected = false, doHover = false, size = 'default', handler}: HeaderIconProps) {
 
   const [hovered, setHovered] = useState(false);
   const className = "header-icon-icon".concat(hovered? " hovered" : '', ' ', size);
 
   return (
     <>
-      <div className='header-icon-container' onMouseEnter={() => setHovered(doHover)} onMouseLeave={() => setHovered(false)}>
+      <div onClick={() => {handler(true)}} className='header-icon-container' onMouseEnter={() => setHovered(doHover)} onMouseLeave={() => setHovered(false)}>
         <button className='header-icon-button'>
           <img className={className} src={src}></img>
         </button>

@@ -2,6 +2,7 @@
     padding: 4px 12px;
     display: inline-block;
     align-self: center;
+    margin-right: 100px;
 }
 
 .header-icon-container, .header-icon-container > * {
