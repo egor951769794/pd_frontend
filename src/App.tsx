@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
@@ -7,6 +7,10 @@ import MainScreen from './pages/MainScreen/MainScreen';
 import AuthPage from './pages/AuthPage/AuthPage';
 
 export default function App() {
+
+  useEffect(() => {
+    document.title = 'EasyLab'
+  }, [])
   return (
     <BrowserRouter>
       <Routes>

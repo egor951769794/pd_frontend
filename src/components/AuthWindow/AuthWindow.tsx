@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './AuthWindow.css';
 
 import axios from 'axios';
@@ -35,6 +35,10 @@ export default function AuthWindow() {
       password: '',
     }
   )
+
+  useEffect(() => {
+    if (userToken.token) navigate("/main")
+  }, [])
 
 
   const handleReg = (event: React.ChangeEvent<HTMLInputElement>) => {

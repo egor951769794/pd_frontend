@@ -8,6 +8,7 @@ import { useState } from 'react';
 
 import { useOutsideClick } from 'src/hooks/UseClickOutside';
 import UserModal from '../UserModal/UserModal';
+import { useNavigate } from 'react-router-dom';
 
 type HeaderProps = {
   authorized: boolean
@@ -16,9 +17,11 @@ type HeaderProps = {
 
 export default function Header(props: HeaderProps) {
 
-  const [userToken, setUserToken, removeUserToken] = useCookies(['token'])
+  const [userToken,] = useCookies(['token'])
 
   const [renderModalQuit, setRenderModalQuit] = useState(false)
+
+  const navigate = useNavigate()
 
   const ref = useOutsideClick(() => setRenderModalQuit(false))
 
@@ -26,7 +29,10 @@ export default function Header(props: HeaderProps) {
     <div className='header-container' ref={ref}>
         <HeaderIcon handler={() => {alert(userToken.token)}} src={logo}></HeaderIcon>
         {props.authorized? <div className='header-authorized'>
-          <div className='header-option'>Главный экран</div>
+          <div className='header-option' 
+            onClick={userToken.token? () => navigate("/main") : () => navigate("/")}>
+              Главный экран
+            </div>
           <div className='header-option'>Рейтинг</div>
           <div className='header-option'>Настройки</div>
         </div>
@@ -34,11 +40,12 @@ export default function Header(props: HeaderProps) {
 
         {userToken.token?
           <div className='header-right'>
-          <HeaderIcon handler={() => {setRenderModalQuit(true)}} src={user}></HeaderIcon>
+          <HeaderIcon handler={() => {if (!renderModalQuit) setRenderModalQuit(true)
+             else setRenderModalQuit(false)}} src={user}></HeaderIcon>
           <UserModal display={renderModalQuit}></UserModal>
           </div> : 
           <div className='header-right'>
-          <HeaderIcon handler={() => setRenderModalQuit(true)} src={user}></HeaderIcon>
+          <HeaderIcon handler={() => {navigate("/")}} src={user}></HeaderIcon>
           </div>}
       </div>
   );

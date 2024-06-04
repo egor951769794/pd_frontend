@@ -27,3 +27,11 @@
 .header-authorized > :last-child {
     margin-right: 0px;
 }
+
+.header-option {
+    cursor: pointer;
+}
+
+.header-option:hover {
+    text-decoration: underline;  
+}
