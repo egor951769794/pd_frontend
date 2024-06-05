@@ -1,0 +1,24 @@
+.lecturer-left {
+    width: 80%;
+}
+
+.lecturer-upper-blocks {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    margin: auto;
+    justify-content: space-between;
+    margin-top: 25px;
+    flex-wrap: wrap;
+}
+
+
+.lecturer-upper-block {
+    flex-grow: 1;
+    padding: 20px;
+    background: #A5BBA2;
+    border-radius: 10px;
+    margin: 0 10px; 
+    margin-bottom: 20px;
+    min-width: 200px;
+}

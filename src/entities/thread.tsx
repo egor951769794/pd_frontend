@@ -1,9 +1,9 @@
-import { task } from "./task"
-import { message } from "./message"
+import { Task } from "./task"
+import { Message } from "./message"
 
-export interface thread {
-    task: task,
+export interface Thread {
+    task: Task,
     student: string,
-    messages: message[],
+    messages: Message[],
     status: string
 }

@@ -1,4 +1,4 @@
-export interface file {
+export interface File {
     slug: string,
     filename: string
 }

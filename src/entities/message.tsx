@@ -1,9 +1,9 @@
-import { file } from "./file"
+import { File } from "./file"
 
-export interface message {
+export interface Message {
     author: string,
     header: string,
     desc: string,
-    files: file[],
+    files: File[],
     date: string
 }

@@ -1,9 +1,9 @@
-import { file } from "./file"
+import { File } from "./file"
 
-export interface task {
-    groups: number[],
+export interface Task {
+    asignedGroups: string[],
     author: string,
-    header: string,
-    desc: string,
-    files?: file[]
+    title: string,
+    description: string,
+    files?: File[]
 }

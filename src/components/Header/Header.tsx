@@ -11,7 +11,7 @@ import UserModal from '../UserModal/UserModal';
 import { useNavigate } from 'react-router-dom';
 
 type HeaderProps = {
-  authorized: boolean
+
 }
 
 
@@ -28,7 +28,7 @@ export default function Header(props: HeaderProps) {
   return (
     <div className='header-container' ref={ref}>
         <HeaderIcon handler={() => {alert(userToken.token)}} src={logo}></HeaderIcon>
-        {props.authorized? <div className='header-authorized'>
+        {userToken.token? <div className='header-authorized'>
           <div className='header-option' 
             onClick={userToken.token? () => navigate("/main") : () => navigate("/")}>
               Главный экран
