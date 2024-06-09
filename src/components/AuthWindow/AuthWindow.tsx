@@ -23,6 +23,13 @@ export default function AuthWindow() {
 
   const [userToken, setUserToken, removeUserToken] = useCookies(['token', ''])
 
+  const [userRole, setUserRole] = useCookies(['role', ''])
+
+  const [userGroup, setUserGroup] = useCookies(['group', ''])
+  
+  const [userName, setUserName] = useCookies(['name', ''])
+
+
   const navigate = useNavigate()
 
   const [registrationData, setRegistrationData] = useState(
@@ -87,7 +94,13 @@ export default function AuthWindow() {
   const handleAuthSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     axios.post(BACKEND_BASE_URL.concat("/auth/signin"), authData)
-    .then((respone) => {setUserToken('token', respone.data.accessToken); navigate("/main")})
+    .then((respone) => {
+      setUserToken('token', respone.data.accessToken); 
+      setUserRole('role', respone.data.user.role)
+      setUserGroup('group', respone.data.user.group ?? '')
+      setUserName('name', respone.data.user.username)
+      navigate("/main")
+    })
     .catch((error) => console.log(error))
   }
 

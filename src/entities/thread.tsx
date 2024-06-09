@@ -1,9 +1,10 @@
-import { Task } from "./task"
 import { Message } from "./message"
 
 export interface Thread {
-    task: Task,
+    task: string,
     student: string,
-    messages: Message[],
-    status: string
+    messages: string[],
+    isDone: boolean,
+    name: string,
+    description: string,
 }

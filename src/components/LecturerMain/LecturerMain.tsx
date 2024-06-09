@@ -18,7 +18,9 @@ type LecturerMainProps = {
 
 export default function LecturerMain(props: LecturerMainProps) {
 
-  const [userToken, setUserToken, removeUserToken] = useCookies(['token'])
+  const [userToken] = useCookies(['token'])
+
+  const [userName] = useCookies(['name'])
 
   const [groups, setGroups] = useState<Group[]>()
 
@@ -53,13 +55,20 @@ export default function LecturerMain(props: LecturerMainProps) {
 
   return (
     <>
-    <div className='lecturer-left'>
-      <div className='lecturer-upper-blocks'>
-        <div className='lecturer-upper-block' onClick={() => navigate("/make_task", {state: {creator_id: userId}})}>Новое задание</div>
-        <div className='lecturer-upper-block' onClick={() => {setDisplayGroups(!displayGroups);}}>Выданные задания
-          <div className={'lecturer-grouplist'.concat(displayGroups? '' : ' disabled')}>
-            {groups?.map((group) => <div onClick={() => {navigate("/given_tasks", {state: {userId: userId, groupId: group._id}})}} className='lecturer-grouplist-group'>{group.groupname}</div>)}
+    <div className='lecturer-container'>
+      <div className='lecturer-left'>
+        <div className='lecturer-upper-blocks'>
+          <div className='lecturer-upper-block' onClick={() => navigate("/make_task", {state: {creator_id: userId}})}>Новое задание</div>
+          <div className='lecturer-upper-block' onClick={() => {setDisplayGroups(!displayGroups);}}>Выданные задания
+            <div className={'lecturer-grouplist'.concat(displayGroups? '' : ' disabled')}>
+              {groups?.map((group) => <div onClick={() => {navigate("/given_tasks", {state: {userId: userId, groupId: group._id}})}} className='lecturer-grouplist-group'>{group.groupname}</div>)}
+            </div>
           </div>
+        </div>
+      </div>
+      <div className='lecturer-right'>
+        <div className='lecturer-upper-blocks'>
+          <div className='lecturer-right-name lecturer-upper-block'>{userName.name}</div>
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import './LecturerTasks.css';
+import './StudentTasks.css';
 import { useEffect, useState } from 'react';
 import { Task } from 'src/entities/task';
 import { Group } from 'src/entities/group';
@@ -8,25 +8,28 @@ import { useNavigate } from 'react-router-dom';
 import TaskListed from '../TaskListed/TaskListed';
 import { useCookies } from 'react-cookie';
 
-type LecturerTasksProps = {
+type StudentTasksProps = {
   groupId: string,
   userId: string,
 }
 
 
-export default function LecturerTasks(props: LecturerTasksProps) {
+export default function StudentTasks(props: StudentTasksProps) {
 
-  const [tasks, setTasks] = useState<Task[]>()
+  const [tasks, setTasks] = useState<any[]>([])
 
   const [groupId, setGroupId] = useState(props.groupId)
 
-  const [groupName, setGroupName] = useState('')
-
   const [groups, setGroups] = useState<Group[]>()
+
+  const [displayGroups, setDisplayGroups] = useState(false)
+
+  const [userGroup, setUserGroup] = useCookies(['group'])
+
+  const [userGroupName, setUserGroupName] = useState('')
 
   const [userName] = useCookies(['name'])
 
-  const [displayGroups, setDisplayGroups] = useState(false)
 
   const navigate = useNavigate()
 
@@ -40,9 +43,10 @@ export default function LecturerTasks(props: LecturerTasksProps) {
     )
     .then((res) => {
       console.log(res.data); 
-      var myTasks: Task[] = []
+      var myTasks: any[] = []
       res.data.map((vanya_task: any) => myTasks.push( 
         {
+          id: vanya_task._id,
           asignedGroups: vanya_task.asignees, // зачем разные имена полям вечно давать
           author: vanya_task.author, 
           title: vanya_task.title,
@@ -60,8 +64,8 @@ export default function LecturerTasks(props: LecturerTasksProps) {
   }
 
   const getGroup = () => {
-    axios.get(BACKEND_BASE_URL + '/group/' + groupId)
-    .then(res => {setGroupName(res.data.groupname)})
+    axios.get(BACKEND_BASE_URL + '/group/' + userGroup.group)
+    .then(res => {setUserGroupName(res.data.groupname)})
     .catch(err => console.log(err))
   }
   
@@ -73,26 +77,22 @@ export default function LecturerTasks(props: LecturerTasksProps) {
 
   return (
     <>
-    <div className='lecturer-container'>
-      <div className='lecturer-left'>
-        <div className='lecturer-upper-blocks'>
-          <div className='lecturer-upper-block' onClick={() => navigate("/make_task", {state: {creator_id: props.userId}})}>Новое задание</div>
-          <div className='lecturer-upper-block' onClick={() => {setDisplayGroups(!displayGroups);}}>Выданные задания
-            <div className={'lecturer-grouplist'.concat(displayGroups? '' : ' disabled')}>
-              {groups?.map((group) => <div onClick={() => {getTasks(group._id);}} className='lecturer-grouplist-group'>{group.groupname}</div>)}
-            </div>
+      <div className='lecturer-container'>
+        <div className='lecturer-left'>
+          <div className='lecturer-upper-blocks'>
+            <div className='lecturer-upper-block' onClick={() => alert(props.groupId)}>Мои задания</div>
+            {/* <div className='lecturer-upper-block'>Мои ответы</div> */}
           </div>
-        </div>
         </div>
         <div className='lecturer-right'>
           <div className='lecturer-upper-blocks'>
             <div className='lecturer-right-name lecturer-upper-block'>{userName.name}</div>
-            <div className='lecturer-right-name lecturer-upper-block'>Задания: {groupName}</div>
+            <div className='lecturer-right-group lecturer-upper-block'>{userGroupName}</div>
           </div>
         </div>
-    </div>
-    <div className='lecturer-tasks-list'>
-        {tasks?.map((task) => <TaskListed task={task}></TaskListed>)}
+      </div>
+      <div className='lecturer-tasks-list'>
+        {tasks?.map((task) => <TaskListed studentId={props.userId} task={task}></TaskListed>)}
     </div>
     </>
   );

@@ -11,4 +11,12 @@
     font-size: 20px;
     cursor: pointer;
     user-select: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+.task-listed-statuses {
+    padding-right: 10px;
+    font-weight: normal;
+    font-size: 18px;
 }
