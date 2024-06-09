@@ -1,0 +1,45 @@
+.task-info-container {
+    width: 40%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 47px 75px;
+    background: #A5BBA2;
+    border-radius: 10px;
+    margin-top: 55px;
+}
+
+.task-info-cell {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: #FCF9F2;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 12px;
+    
+}
+
+
+.task-info-sell > * {
+    font-size: 16px;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    text-align: center;
+    margin: 12px 0;
+    background: #FCF9F2;
+}
+
+.task-info-cell > :first-child {
+    margin-top: 0;
+}
+
+.task-info-title-header {
+    border-bottom: 1px solid black;
+    padding-bottom: 3px;
+}
+
+.task-info-group { 
+    color: rgb(72, 72, 72);
+}

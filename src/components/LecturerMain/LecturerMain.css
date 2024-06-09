@@ -10,6 +10,7 @@
     justify-content: space-between;
     margin-top: 25px;
     flex-wrap: wrap;
+    margin-bottom: 30px;
 }
 
 
@@ -21,4 +22,26 @@
     margin: 0 10px; 
     margin-bottom: 20px;
     min-width: 200px;
+    cursor: pointer;
+    user-select: none;
+    align-self: flex-start;
+    position: relative;
+}
+
+.lecturer-grouplist {
+    background: #d0e0ce;
+    padding: 10px;
+    margin-top: 10px;
+    position: absolute;
+    transform: translate(-20px, 10px);
+    width: 50%;
+}
+
+.lecturer-grouplist.disabled {
+    display: none;
+}
+
+.lecturer-grouplist-group {
+    border-bottom: 2px solid #a9b7a8;
+    padding: 2px;
 }

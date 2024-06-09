@@ -5,6 +5,7 @@ import { postTask } from 'src/requests/postTask';
 import axios from 'axios';
 import { BACKEND_BASE_URL } from 'src/constants/constants';
 import { Group } from 'src/entities/group';
+import { useNavigate } from 'react-router-dom';
 
 type MakeTaskProps = {
   creator_id: string
@@ -12,6 +13,8 @@ type MakeTaskProps = {
 
 
 export default function MakeTask(props: MakeTaskProps) {
+
+  const navigate = useNavigate()
 
   const [task, setTask] = useState<Task>({
     asignedGroups: [],
@@ -41,8 +44,8 @@ export default function MakeTask(props: MakeTaskProps) {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    alert(task.asignedGroups)
     postTask(task)
+    navigate("/main")
   }
   
   const handleReset = () => {

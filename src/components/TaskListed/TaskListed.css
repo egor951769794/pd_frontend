@@ -1,0 +1,14 @@
+.task-listed-container {
+    width: 100%;
+    background: rgba(165, 187, 162, 0.35);
+    border-radius: 10px;
+    margin-bottom: 30px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+    font-weight: bold;
+    font-size: 20px;
+    cursor: pointer;
+    user-select: none;
+}

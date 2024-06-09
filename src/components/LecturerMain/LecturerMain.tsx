@@ -5,6 +5,7 @@ import { Task } from 'src/entities/task';
 import { postTask } from 'src/requests/postTask';
 import { useCookies } from 'react-cookie';
 import { useEffect, useState } from 'react';
+import { Group } from 'src/entities/group';
 
 import { BACKEND_BASE_URL } from 'src/constants/constants';
 import { useNavigate } from 'react-router-dom';
@@ -19,9 +20,13 @@ export default function LecturerMain(props: LecturerMainProps) {
 
   const [userToken, setUserToken, removeUserToken] = useCookies(['token'])
 
+  const [groups, setGroups] = useState<Group[]>()
+
+  const [displayGroups, setDisplayGroups] = useState(false)
+
   const navigate = useNavigate()
 
-  let userId = ''
+  const [userId, setUserId] = useState('')
 
   const getMe = (token: string) => {
     axios.get(BACKEND_BASE_URL + getMeUrl, {
@@ -30,31 +35,33 @@ export default function LecturerMain(props: LecturerMainProps) {
         },
         withCredentials: true
     })
-    .then((respone) => {userId = respone.data._id; console.log(respone.data)})
+    .then((respone) => {setUserId(respone.data._id); console.log(respone.data)})
     .catch((error) => console.log('error in get_me', error))
+  }
+
+  const getGroups = () => {
+    axios.get(BACKEND_BASE_URL + '/group')
+    .then((res) => {console.log(res.data); setGroups(res.data)})
+    .catch((err) => console.log(err))
   }
 
   useEffect(() => {
     getMe(userToken.token)
+    getGroups()
   }, [])
 
-  const task : Task = {
-    asignedGroups: ['МО-211'],
-    author: userId,
-    title: 'заголовок',
-    description: 'описание',
-  }
 
   return (
     <>
     <div className='lecturer-left'>
       <div className='lecturer-upper-blocks'>
         <div className='lecturer-upper-block' onClick={() => navigate("/make_task", {state: {creator_id: userId}})}>Новое задание</div>
-        <div className='lecturer-upper-block'>Новое задание</div>
-        <div className='lecturer-upper-block'>Новое задание</div>
-        <div className='lecturer-upper-block'>Новое задание</div>
+        <div className='lecturer-upper-block' onClick={() => {setDisplayGroups(!displayGroups);}}>Выданные задания
+          <div className={'lecturer-grouplist'.concat(displayGroups? '' : ' disabled')}>
+            {groups?.map((group) => <div onClick={() => {navigate("/given_tasks", {state: {userId: userId, groupId: group._id}})}} className='lecturer-grouplist-group'>{group.groupname}</div>)}
+          </div>
+        </div>
       </div>
-      <div onClick={() => {postTask({asignedGroups: ['МО-211'], author: userId, title: 'заго11ловок1', description: 'desc'});}}>запостить</div>
     </div>
     </>
   );
