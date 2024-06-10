@@ -48,6 +48,7 @@
     width: 50%;
     color: black;
     cursor: pointer;
+    margin: 0;
 }
 
 .disabled {
@@ -89,4 +90,32 @@
 
 .no-margin-top {
     margin-top: 10px;
+}
+
+.task-info-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 0;
+}
+
+.task-info-buttons > * {
+    margin: 0;
+}
+
+.task-info-buttons > *:first-child {
+    margin-right: 10px;
+    margin-left: 0px;
+    width: 30%
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.task-info-cell.accepted {
+    /* background: #9bc58f; */
+    color: rgb(0, 91, 0);
+    font-weight: bold;
 }

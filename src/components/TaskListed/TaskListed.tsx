@@ -13,7 +13,7 @@ type TaskListedProps = {
 
 export default function TaskListed({task, studentId}: TaskListedProps) {
 
-  const [answer, setAnswer] = useState<any>(undefined)
+  const [answer, setAnswer] = useState<any>('')
 
   const [userRole, _] = useCookies(['role'])
 
@@ -37,8 +37,18 @@ export default function TaskListed({task, studentId}: TaskListedProps) {
         >
         {task.title}
         {studentId? 
-          <div className='task-listed-statuses'>
+          <div className='task-listed-statuses' onClick={() => {console.log(answer)}}>
+            {/* {!answer || answer?.at(0).isDone?
             <div className='task-listed-answered'>{answer?.length ? 'В работе' : 'Вы не ответили'}</div>
+            :
+            <div className='task-listed-answered'>Принято</div>
+            } */}
+            {
+              answer.length? 
+                answer.at(0).isDone? <div className='task-listed-answered' onClick={() => console.log(answer)}>Принято</div> : <div className='task-listed-answered'>В работе</div>
+              :
+                <div className='task-listed-answered'>Вы не ответили</div>
+            }
           </div>
           : <></>
         }

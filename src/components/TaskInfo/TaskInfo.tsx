@@ -27,6 +27,8 @@ export default function TaskInfo(props: TaskInfoProps) {
 
   const [userToken] = useCookies(['token'])
 
+  const [userRole] = useCookies(['role'])
+
   const [answering, setAnswering] = useState(false)
 
   const [answerMsg, setAnswerMsg] = useState('')
@@ -84,6 +86,8 @@ export default function TaskInfo(props: TaskInfoProps) {
     setCurrentMessage(event.target.value)
   }
 
+
+
   const getMessages = () => {
     if (answer)
       axios.get(BACKEND_BASE_URL + '/thread/' + answer._id + '/message')
@@ -104,6 +108,7 @@ export default function TaskInfo(props: TaskInfoProps) {
   }
 
   const addMessage = (msg: string) => {
+    if (!currentMessage.length) return;
     axios.post(BACKEND_BASE_URL + '/thread/' + answer._id + '/message', {text: msg},
       {
         headers: {
@@ -119,6 +124,12 @@ export default function TaskInfo(props: TaskInfoProps) {
   const getThreads = () => {
     axios.get(BACKEND_BASE_URL + '/thread/task/' + task.id)
     .then(res => {console.log(res.data);setThreads(res.data)})
+    .catch(err => console.log(err))
+  }
+
+  const acceptThread = () => {
+    axios.post(BACKEND_BASE_URL + '/thread/' + answer._id + '/accept')
+    .then(res => {console.log(res);navigate("/")})
     .catch(err => console.log(err))
   }
 
@@ -159,7 +170,7 @@ export default function TaskInfo(props: TaskInfoProps) {
       </div>
       {messages.length? 
       <>
-        <div className='thread-title'>Сообщения</div>
+        <div className='thread-title' onClick={() => alert(answer.isDone)}>Сообщения</div>
         <div className='thread-container'>
           {messages.map((msg: any) => 
             <div className='thread-message'>
@@ -169,8 +180,12 @@ export default function TaskInfo(props: TaskInfoProps) {
               </div>
               <textarea className='thread-message-text task-info-cell' value={msg.text} disabled={true}></textarea>
             </div>)}
-            <textarea className='maketask-desc task-info-cell please-expand' placeholder='Ответ...' rows={3} value={currentMessage} onChange={handleCurMsg}></textarea>
-            <div className='task-info-cell task-info-button' onClick={() => addMessage(currentMessage)}>Ответить</div>
+            {!answer.isDone? <textarea className='maketask-desc task-info-cell please-expand' placeholder='Ответ...' rows={3} value={currentMessage} onChange={handleCurMsg}></textarea> : <></>}
+            <div className='task-info-buttons'>
+              {!answer.isDone? <div className='task-info-cell task-info-button' onClick={() => addMessage(currentMessage)}>Ответить</div> : <></>}
+              {userRole.role === "lecturer" && !answer.isDone? <div className='task-info-cell task-info-button' onClick={() => acceptThread()}>Принять</div> : <></>}
+              {answer.isDone? <div className='task-info-cell task-info-button accepted'>Принято</div> : <></>}
+            </div>
         </div>
       </>
       : 
@@ -181,10 +196,10 @@ export default function TaskInfo(props: TaskInfoProps) {
         <div className='thread-title'>Сданные работы</div>
         <div className='task-info-container no-margin-top'>
           {threads.map((thread: any) =>  
-            <div className='task-info-cell'
+            <div className='task-info-cell pointer'
               onClick={() => {navigate("/thread", {state: {task: task, studentId: thread.user._id, answer: thread.thread}})}}>
               <div className='thread-message-author'>{thread.user.username}</div>
-              <div className='thread-message-status'>{thread.isDone? 'Проверено' : 'В работе'}</div>
+              <div className='thread-message-status'>{thread.thread.isDone? 'Принято' : 'В работе'}</div>
             </div>)}
         </div>
       </>
