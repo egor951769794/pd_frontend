@@ -7,7 +7,7 @@
 git clone https://github.com/egor951769794/pd_frontend.git
 ```
 
-в папке проекта:
+в папке проекта (/pd_frontend):
 ```
 npm i
 ```
