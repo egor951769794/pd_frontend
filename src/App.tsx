@@ -9,6 +9,7 @@ import MakeTaskPage from './pages/MakeTask/MakeTaskPage';
 import LecturerTasksPage from './pages/LecturerTasksPage/LecturerTasksPage';
 import StudentTasksPage from './pages/StudentTasksPage/StudentTasksPage';
 import TaskInfo from './components/TaskInfo/TaskInfo';
+import ThreadInfo from './components/ThreadInfo/ThreadInfo';
 
 export default function App() {
 
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="/given_tasks" element={<LecturerTasksPage></LecturerTasksPage>}></Route>
         <Route path="/my_tasks" element={<StudentTasksPage></StudentTasksPage>}></Route>
         <Route path="/task" element={<TaskInfo></TaskInfo>}></Route>
+        <Route path="/thread" element={<ThreadInfo></ThreadInfo>}></Route>
       </Routes>
     </BrowserRouter>
   );

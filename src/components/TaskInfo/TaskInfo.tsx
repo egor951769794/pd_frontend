@@ -9,7 +9,9 @@ import { Thread } from 'src/entities/thread';
 import { useCookies } from 'react-cookie';
 
 type TaskInfoProps = {
-  // task: Task
+  task?: object,
+  studentId?: string,
+  answer?: object
 }
 
 
@@ -17,11 +19,9 @@ export default function TaskInfo(props: TaskInfoProps) {
 
   const loc = useLocation()
 
-  var redirect: number | undefined = loc.state.redirect
-
-  const task = loc.state.task
-  const studentId: string | undefined = loc.state.studentId
-  const answer = loc.state.answer
+  const task = loc.state.task || props.task
+  const studentId: string | undefined = loc.state.studentId || props.studentId
+  const answer = loc.state.answer || props.answer
 
   const [groups, setGroups] = useState<string[]>([]) 
 
@@ -31,7 +31,7 @@ export default function TaskInfo(props: TaskInfoProps) {
 
   const [answerMsg, setAnswerMsg] = useState('')
 
-  const [messages, setMessages] = useState<[]>([])
+  const [messages, setMessages] = useState<any[]>([])
   
   const [currentMessage, setCurrentMessage] = useState<string>('')
   
@@ -86,9 +86,21 @@ export default function TaskInfo(props: TaskInfoProps) {
 
   const getMessages = () => {
     if (answer)
-    axios.get(BACKEND_BASE_URL + '/thread/' + answer._id + '/message')
-    .then(res => {console.log(res.data); setMessages(res.data)})
-    .catch(err => console.log(err))
+      axios.get(BACKEND_BASE_URL + '/thread/' + answer._id + '/message')
+      .then(res => {
+          setMessages([]);
+          const msg = [...res.data].reverse()
+          console.log(res.data); 
+          const promises = res.data.map((msg: any) => axios.get(BACKEND_BASE_URL + '/user/' + msg.author))
+          axios.all(promises)
+          .then(resArray => {
+              console.log(resArray)
+              resArray.map((el: any) => setMessages(messages => [...messages, {...msg.pop(), authorName: el.data.username}]))
+            }
+          )
+          .catch(err => console.log(err))
+        })
+      .catch(err => console.log(err))
   }
 
   const addMessage = (msg: string) => {
@@ -106,7 +118,7 @@ export default function TaskInfo(props: TaskInfoProps) {
 
   const getThreads = () => {
     axios.get(BACKEND_BASE_URL + '/thread/task/' + task.id)
-    .then(res => {setThreads(res.data)})
+    .then(res => {console.log(res.data);setThreads(res.data)})
     .catch(err => console.log(err))
   }
 
@@ -118,20 +130,13 @@ export default function TaskInfo(props: TaskInfoProps) {
     if (!studentId) getThreads()
   }, [])
 
-  useEffect(() => {
-    console.log('loaded')
-    getGroups()
-    getMessages()
-    if (!studentId) getThreads()
-  }, [redirect])
-
 
   return (
     <>
       <Header/>
       <div className='task-info-container'>
         <div className='task-info-title task-info-cell'>{task.title}</div>
-        <div className='task-info-title-header' onClick={() => alert(task.asignedGroups)}>Группы</div>
+        <div className='task-info-title-header' onClick={() => alert(messages[0].author)}>Группы</div>
         {groups.map((group) => <div className='task-info-group'>{group}</div>)}
         <div className='task-info-title-header'>Описание работы</div>
         <textarea className='maketask-desc task-info-cell' value={task.description} rows={6} disabled={true}></textarea> {/* впадлу новый стиль потом сделаю*/}
@@ -159,7 +164,7 @@ export default function TaskInfo(props: TaskInfoProps) {
           {messages.map((msg: any) => 
             <div className='thread-message'>
               <div className='thread-message-info'>
-                <div className='thread-message-author'>Студент</div>
+                <div className='thread-message-author'>{msg.authorName}</div>
                 <div className='thread-message-time'>{msg.dateCreated.replace("T", " ").replace("Z", " ")}</div>
               </div>
               <textarea className='thread-message-text task-info-cell' value={msg.text} disabled={true}></textarea>
@@ -173,17 +178,12 @@ export default function TaskInfo(props: TaskInfoProps) {
       }
       {threads.length? 
       <>
-        <div className='thread-title'>Сданные работы</div>
+        <div className='thread-title' onClick={() => alert()}>Сданные работы</div>
         <div className='task-info-container no-margin-top'>
-          {threads.map((thread: any) => 
+          {threads.map((thread: any) =>  
             <div className='task-info-cell'
-              onClick={() => {
-                navigate("/")
-                redirect = 1
-                navigate("/task", {state: {task: thread.task, studentId: thread.student, answer: thread._id}})}
-              }
-              >
-              <div className='thread-message-author'>{thread.student}</div>
+              onClick={() => {alert(thread.user._id);navigate("/thread", {state: {task: task, studentId: thread.user._id, answer: thread.thread}})}}>
+              <div className='thread-message-author'>{thread.user.username}</div>
               <div className='thread-message-status'>{thread.isDone? 'Проверено' : 'В работе'}</div>
             </div>)}
         </div>
