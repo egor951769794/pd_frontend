@@ -61,7 +61,7 @@ export default function LecturerMain(props: LecturerMainProps) {
           <div className='lecturer-upper-block' onClick={() => navigate("/make_task", {state: {creator_id: userId}})}>Новое задание</div>
           <div className='lecturer-upper-block' onClick={() => {setDisplayGroups(!displayGroups);}}>Выданные задания
             <div className={'lecturer-grouplist'.concat(displayGroups? '' : ' disabled')}>
-              {groups?.map((group) => <div onClick={() => {navigate("/given_tasks", {state: {userId: userId, groupId: group._id}})}} className='lecturer-grouplist-group'>{group.groupname}</div>)}
+              {groups?.map((group) => <div key={group._id} onClick={() => {navigate("/given_tasks", {state: {userId: userId, groupId: group._id}})}} className='lecturer-grouplist-group'>{group.groupname}</div>)}
             </div>
           </div>
         </div>

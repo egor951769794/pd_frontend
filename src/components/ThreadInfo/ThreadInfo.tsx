@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import './TaskInfo.css';
+import './ThreadInfo.css';
 import { Task } from 'src/entities/task';
 import Header from '../Header/Header';
 import { BACKEND_BASE_URL } from 'src/constants/constants';
@@ -8,12 +8,12 @@ import axios from 'axios';
 import { Thread } from 'src/entities/thread';
 import { useCookies } from 'react-cookie';
 
-type TaskInfoProps = {
+type ThreadInfoProps = {
   // task: Task
 }
 
 
-export default function TaskInfo(props: TaskInfoProps) {
+export default function TaskInfo(props: ThreadInfoProps) {
 
   const loc = useLocation()
 

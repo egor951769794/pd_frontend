@@ -40,9 +40,10 @@ export default function LecturerTasks(props: LecturerTasksProps) {
     )
     .then((res) => {
       console.log(res.data); 
-      var myTasks: Task[] = []
+      var myTasks: any[] = []
       res.data.map((vanya_task: any) => myTasks.push( 
         {
+          id: vanya_task._id,
           asignedGroups: vanya_task.asignees, // зачем разные имена полям вечно давать
           author: vanya_task.author, 
           title: vanya_task.title,
@@ -79,7 +80,7 @@ export default function LecturerTasks(props: LecturerTasksProps) {
           <div className='lecturer-upper-block' onClick={() => navigate("/make_task", {state: {creator_id: props.userId}})}>Новое задание</div>
           <div className='lecturer-upper-block' onClick={() => {setDisplayGroups(!displayGroups);}}>Выданные задания
             <div className={'lecturer-grouplist'.concat(displayGroups? '' : ' disabled')}>
-              {groups?.map((group) => <div onClick={() => {getTasks(group._id);}} className='lecturer-grouplist-group'>{group.groupname}</div>)}
+              {groups?.map((group) => <div key={group._id} onClick={() => {getTasks(group._id);}} className='lecturer-grouplist-group'>{group.groupname}</div>)}
             </div>
           </div>
         </div>

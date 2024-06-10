@@ -26,7 +26,8 @@ export default function TaskListed({task, studentId}: TaskListedProps) {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!userRole.role) checkForAnswer()
+    if (!userRole.role)
+    checkForAnswer()
   }, [])
 
   return (

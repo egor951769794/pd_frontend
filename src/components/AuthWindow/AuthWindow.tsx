@@ -109,7 +109,7 @@ export default function AuthWindow() {
     <div className='auth-container'>
       {windowState ?
       <form className='auth-form' onSubmit={(event) => handleRegSubmit(event)}>
-        <input name='username' type='text' placeholder='Адрес эл.почты' value={registrationData.username} onChange={(event) => handleReg(event)}/>
+        <input name='username' type='text' placeholder='Логин' value={registrationData.username} onChange={(event) => handleReg(event)}/>
         <input name='password' type='password' placeholder='Пароль' value={registrationData.password} onChange={(event) => handleReg(event)}/>
         {registrationData.role === 'lecturer'? <></> : <select name='group' id='group' multiple={false} className='auth-form-group' onChange={handleGroupSelection}>
           <option>Группа студента</option>
@@ -123,7 +123,7 @@ export default function AuthWindow() {
       </form>
       : 
       <form className='auth-form' onSubmit={(event) => handleAuthSubmit(event)}>
-        <input name='username' type='text' placeholder='Адрес эл.почты' value={authData.username} onChange={(event) => handleAuth(event)}/>
+        <input name='username' type='text' placeholder='Логин' value={authData.username} onChange={(event) => handleAuth(event)}/>
         <input name='password' type='password' placeholder='Пароль' value={authData.password} onChange={(event) => handleAuth(event)}/>
         <button type='submit' className='auth-button'>Войти</button>
       </form>}
