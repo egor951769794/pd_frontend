@@ -95,7 +95,7 @@ export default function TaskInfo(props: TaskInfoProps) {
           axios.all(promises)
           .then(resArray => {
               console.log(resArray)
-              resArray.map((el: any) => setMessages(messages => [...messages, {...msg.pop(), authorName: el.data.username}]))
+              resArray.map((el: any) => setMessages(messages => [...messages, {...msg.pop(), authorName: el.data.username, authorRole: el.data.role}]))
             }
           )
           .catch(err => console.log(err))
@@ -136,7 +136,7 @@ export default function TaskInfo(props: TaskInfoProps) {
       <Header/>
       <div className='task-info-container'>
         <div className='task-info-title task-info-cell'>{task.title}</div>
-        <div className='task-info-title-header' onClick={() => alert(messages[0].author)}>Группы</div>
+        <div className='task-info-title-header'>Группы</div>
         {groups.map((group) => <div className='task-info-group'>{group}</div>)}
         <div className='task-info-title-header'>Описание работы</div>
         <textarea className='maketask-desc task-info-cell' value={task.description} rows={6} disabled={true}></textarea> {/* впадлу новый стиль потом сделаю*/}
@@ -164,7 +164,7 @@ export default function TaskInfo(props: TaskInfoProps) {
           {messages.map((msg: any) => 
             <div className='thread-message'>
               <div className='thread-message-info'>
-                <div className='thread-message-author'>{msg.authorName}</div>
+                <div className='thread-message-author'>{(msg.authorRole === "lecturer"? 'Пр. ': 'Ст. ').concat(msg.authorName)}</div>
                 <div className='thread-message-time'>{msg.dateCreated.replace("T", " ").replace("Z", " ")}</div>
               </div>
               <textarea className='thread-message-text task-info-cell' value={msg.text} disabled={true}></textarea>
