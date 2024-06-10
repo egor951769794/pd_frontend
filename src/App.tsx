@@ -10,6 +10,7 @@ import LecturerTasksPage from './pages/LecturerTasksPage/LecturerTasksPage';
 import StudentTasksPage from './pages/StudentTasksPage/StudentTasksPage';
 import TaskInfo from './components/TaskInfo/TaskInfo';
 import ThreadInfo from './components/ThreadInfo/ThreadInfo';
+import { HashRouter } from 'react-router-dom';
 
 export default function App() {
 
@@ -17,7 +18,7 @@ export default function App() {
     document.title = '/'
   }, [])
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<AuthPage></AuthPage>}></Route>
         <Route path="/main" element={<MainScreen></MainScreen>}></Route>
@@ -27,6 +28,6 @@ export default function App() {
         <Route path="/task" element={<TaskInfo></TaskInfo>}></Route>
         <Route path="/thread" element={<ThreadInfo></ThreadInfo>}></Route>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }

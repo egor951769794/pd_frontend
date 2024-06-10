@@ -38,7 +38,7 @@ export default function TaskListed({task, studentId}: TaskListedProps) {
         {task.title}
         {studentId? 
           <div className='task-listed-statuses'>
-            <div className='task-listed-answered' onClick={()=>alert(answer)}>{answer?.length ? 'В работе' : 'Вы не ответили'}</div>
+            <div className='task-listed-answered'>{answer?.length ? 'В работе' : 'Вы не ответили'}</div>
           </div>
           : <></>
         }

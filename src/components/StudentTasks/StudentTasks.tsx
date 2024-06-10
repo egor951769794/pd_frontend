@@ -80,7 +80,7 @@ export default function StudentTasks(props: StudentTasksProps) {
       <div className='lecturer-container'>
         <div className='lecturer-left'>
           <div className='lecturer-upper-blocks'>
-            <div className='lecturer-upper-block' onClick={() => alert(props.groupId)}>Мои задания</div>
+            <div className='lecturer-upper-block'>Мои задания</div>
             {/* <div className='lecturer-upper-block'>Мои ответы</div> */}
           </div>
         </div>

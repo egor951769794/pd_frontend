@@ -178,11 +178,11 @@ export default function TaskInfo(props: TaskInfoProps) {
       }
       {threads.length? 
       <>
-        <div className='thread-title' onClick={() => alert()}>Сданные работы</div>
+        <div className='thread-title'>Сданные работы</div>
         <div className='task-info-container no-margin-top'>
           {threads.map((thread: any) =>  
             <div className='task-info-cell'
-              onClick={() => {alert(thread.user._id);navigate("/thread", {state: {task: task, studentId: thread.user._id, answer: thread.thread}})}}>
+              onClick={() => {navigate("/thread", {state: {task: task, studentId: thread.user._id, answer: thread.thread}})}}>
               <div className='thread-message-author'>{thread.user.username}</div>
               <div className='thread-message-status'>{thread.isDone? 'Проверено' : 'В работе'}</div>
             </div>)}
