@@ -74,7 +74,7 @@ export default function TaskInfo(props: TaskInfoProps) {
       }
       )
     })
-    .then(res => {console.log(res.data); navigate("/", {state: {task: task, studentId: studentId, answer: answer? answer.at(0): undefined}})})
+    .then(res => {navigate("/", {state: {task: task, studentId: studentId, answer: answer? answer.at(0): undefined}})})
     .catch(err => console.log(err))
   } 
 
@@ -94,11 +94,9 @@ export default function TaskInfo(props: TaskInfoProps) {
       .then(res => {
           setMessages([]);
           const msg = [...res.data].reverse()
-          console.log(res.data); 
           const promises = res.data.map((msg: any) => axios.get(BACKEND_BASE_URL + '/user/' + msg.author))
           axios.all(promises)
           .then(resArray => {
-              console.log(resArray)
               resArray.map((el: any) => setMessages(messages => [...messages, {...msg.pop(), authorName: el.data.username, authorRole: el.data.role}]))
             }
           )
@@ -117,25 +115,24 @@ export default function TaskInfo(props: TaskInfoProps) {
         withCredentials: true
       }
     )
-    .then((res) => {console.log(res); setCurrentMessage(''); getMessages()})
+    .then((res) => {setCurrentMessage(''); getMessages()})
     .catch(err => console.log(err))
   }
 
   const getThreads = () => {
     axios.get(BACKEND_BASE_URL + '/thread/task/' + task.id)
-    .then(res => {console.log(res.data);setThreads(res.data)})
+    .then(res => {setThreads(res.data)})
     .catch(err => console.log(err))
   }
 
   const acceptThread = () => {
     axios.post(BACKEND_BASE_URL + '/thread/' + answer._id + '/accept')
-    .then(res => {console.log(res);navigate("/")})
+    .then(res => {navigate("/")})
     .catch(err => console.log(err))
   }
 
 
   useEffect(() => {
-    console.log('loaded')
     getGroups()
     getMessages()
     if (!studentId) getThreads()
@@ -170,7 +167,7 @@ export default function TaskInfo(props: TaskInfoProps) {
       </div>
       {messages.length? 
       <>
-        <div className='thread-title' onClick={() => alert(answer.isDone)}>Сообщения</div>
+        <div className='thread-title'>Сообщения</div>
         <div className='thread-container'>
           {messages.map((msg: any) => 
             <div className='thread-message'>

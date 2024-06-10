@@ -56,7 +56,7 @@ export default function LecturerTasks(props: LecturerTasksProps) {
 
   const getGroups = () => {
     axios.get(BACKEND_BASE_URL + '/group')
-    .then((res) => {console.log(res.data); setGroups(res.data)})
+    .then((res) => {setGroups(res.data)})
     .catch((err) => console.log(err))
   }
 

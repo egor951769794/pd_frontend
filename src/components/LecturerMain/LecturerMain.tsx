@@ -37,13 +37,13 @@ export default function LecturerMain(props: LecturerMainProps) {
         },
         withCredentials: true
     })
-    .then((respone) => {setUserId(respone.data._id); console.log(respone.data)})
+    .then((respone) => {setUserId(respone.data._id)})
     .catch((error) => console.log('error in get_me', error))
   }
 
   const getGroups = () => {
     axios.get(BACKEND_BASE_URL + '/group')
-    .then((res) => {console.log(res.data); setGroups(res.data)})
+    .then((res) => {setGroups(res.data)})
     .catch((err) => console.log(err))
   }
 

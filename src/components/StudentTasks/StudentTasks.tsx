@@ -41,8 +41,7 @@ export default function StudentTasks(props: StudentTasksProps) {
       //   }
       // }
     )
-    .then((res) => {
-      console.log(res.data); 
+    .then((res) => { 
       var myTasks: any[] = []
       res.data.map((vanya_task: any) => myTasks.push( 
         {
@@ -59,7 +58,7 @@ export default function StudentTasks(props: StudentTasksProps) {
 
   const getGroups = () => {
     axios.get(BACKEND_BASE_URL + '/group')
-    .then((res) => {console.log(res.data); setGroups(res.data)})
+    .then((res) => {setGroups(res.data)})
     .catch((err) => console.log(err))
   }
 

@@ -61,7 +61,7 @@ export default function MakeTask(props: MakeTaskProps) {
 
   const getGroups = () => {
     axios.get(BACKEND_BASE_URL + '/group')
-    .then((res) => {console.log(res.data); setGroups(res.data)})
+    .then((res) => {setGroups(res.data)})
     .catch((err) => console.log(err))
   }
 

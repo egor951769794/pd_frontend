@@ -70,7 +70,7 @@ export default function AuthWindow() {
 
   const getGroups = () => {
     axios.get(BACKEND_BASE_URL + '/group')
-    .then((res) => {console.log(res.data); setGroups(res.data)})
+    .then((res) => {setGroups(res.data)})
     .catch((err) => console.log(err))
   }
 
@@ -83,11 +83,11 @@ export default function AuthWindow() {
     if (registrationData.role === 'lecturer') {
       const {group, ...rest} = registrationData
       axios.post(BACKEND_BASE_URL.concat("/auth"), rest)
-      .then((respone) => console.log(respone))
+      .then()
       .catch((error) => console.log(error))
     } else {
       axios.post(BACKEND_BASE_URL.concat("/auth"), registrationData)
-      .then((respone) => console.log(respone))
+      .then()
       .catch((error) => console.log(error))
     }
   }

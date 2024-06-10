@@ -33,8 +33,8 @@ export default function Header(props: HeaderProps) {
             onClick={userToken.token? () => navigate("/main") : () => navigate("/")}>
               Главный экран
             </div>
-          <div className='header-option'>Рейтинг</div>
-          <div className='header-option'>Настройки</div>
+          <div className='header-option' onClick={() => alert('¯\\_(ツ)_/¯')}>Рейтинг</div>
+          <div className='header-option' onClick={() => alert('¯\\_(ツ)_/¯')}>Настройки</div>
         </div>
         : <></>}
 

@@ -34,7 +34,7 @@ export default function StudentMain(props: StudentMainProps) {
         },
         withCredentials: true
     })
-    .then((respone) => {setUserId(respone.data._id); console.log(respone.data)})
+    .then((respone) => {setUserId(respone.data._id)})
     .catch((error) => console.log('error in get_me', error))
   }
 

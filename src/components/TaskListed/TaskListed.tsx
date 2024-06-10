@@ -37,7 +37,7 @@ export default function TaskListed({task, studentId}: TaskListedProps) {
         >
         {task.title}
         {studentId? 
-          <div className='task-listed-statuses' onClick={() => {console.log(answer)}}>
+          <div className='task-listed-statuses'>
             {/* {!answer || answer?.at(0).isDone?
             <div className='task-listed-answered'>{answer?.length ? 'В работе' : 'Вы не ответили'}</div>
             :
@@ -45,7 +45,7 @@ export default function TaskListed({task, studentId}: TaskListedProps) {
             } */}
             {
               answer.length? 
-                answer.at(0).isDone? <div className='task-listed-answered' onClick={() => console.log(answer)}>Принято</div> : <div className='task-listed-answered'>В работе</div>
+                answer.at(0).isDone? <div className='task-listed-answered'>Принято</div> : <div className='task-listed-answered'>В работе</div>
               :
                 <div className='task-listed-answered'>Вы не ответили</div>
             }
